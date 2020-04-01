@@ -207,20 +207,26 @@ private void ExecuteTestSuite(String suite, String wsite, String b) throws Excep
 				 // FileUtils.cleanDirectory(new File(dPath)); // clear download path
 				  System.setProperty("webdriver.chrome.driver", "chromedriver");
 				  //new code
-				  String downloadFilepath = dPath;
-				  HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
-				  chromePrefs.put("profile.default_content_settings.popups", 0);
-				  chromePrefs.put("download.default_directory", downloadFilepath);
-				  ChromeOptions options = new ChromeOptions();
-				  HashMap<String, Object> chromeOptionsMap = new HashMap<String, Object>();
-				  options.setExperimentalOption("prefs", chromePrefs);
-				  options.addArguments("--test-type");
-				  DesiredCapabilities cap = DesiredCapabilities.chrome();
-				  cap.setCapability(ChromeOptions.CAPABILITY, chromeOptionsMap);
-				  cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-				  cap.setCapability(ChromeOptions.CAPABILITY, options);   					 	  
-				  // WebDriver driver = new ChromeDriver(cap);
-				  d = new ChromeDriver(cap);
+				  
+						 	ChromeOptions options = new ChromeOptions();
+						 	
+							
+							// ChromeDriver is just AWFUL because every version or two it breaks unless you pass cryptic arguments
+							//AGRESSIVE: options.setPageLoadStrategy(PageLoadStrategy.NONE); // https://www.skptricks.com/2018/08/timed-out-receiving-message-from-renderer-selenium.html
+								options.addArguments("start-maximized"); // https://stackoverflow.com/a/26283818/1689770
+								options.addArguments("enable-automation"); // https://stackoverflow.com/a/43840128/1689770
+								//options.addArguments("--headless"); // only if you are ACTUALLY running headless
+								options.addArguments("--no-sandbox"); //https://stackoverflow.com/a/50725918/1689770
+								options.addArguments("--disable-infobars"); //https://stackoverflow.com/a/43840128/1689770
+								options.addArguments("--disable-dev-shm-usage"); //https://stackoverflow.com/a/50725918/1689770
+								options.addArguments("--disable-browser-side-navigation"); //https://stackoverflow.com/a/49123152/1689770
+								options.addArguments("--disable-gpu"); //https://stackoverflow.com/questions/51959986/how-to-solve-selenium-chromedriver-timed-out-receiving-message-from-renderer-exc
+								
+							
+						 
+						 	
+						 	
+				  d = new ChromeDriver(options);
 				  d.get(wsite);
 				  d.manage().window().maximize();
 			  }
