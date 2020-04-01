@@ -341,7 +341,7 @@ private void ExecuteTestSuite(String suite, String wsite, String b) throws Excep
 	  
 	  fs = new FileInputStream("data.properties");
 	  prop.load(fs);  
-	  screen = new Overlay();  
+	 // screen = new Overlay();  
 	  WriteReport.writeReportFile();
 	  writeHtml.writeFile();
 	  writeHtml.writeFileSummary();
