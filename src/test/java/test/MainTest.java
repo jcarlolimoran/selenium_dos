@@ -204,13 +204,13 @@ private void ExecuteTestSuite(String suite, String wsite, String b) throws Excep
 		  }
 		  else 
 			  if(b.equals("Chrome")){
-				  FileUtils.cleanDirectory(new File(dPath)); // clear download path
+				  //FileUtils.cleanDirectory(new File(dPath)); // clear download path
 				  System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 				  //new code
-				  String downloadFilepath = dPath;
+				  //String downloadFilepath = dPath;
 				  HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
 				  chromePrefs.put("profile.default_content_settings.popups", 0);
-				  chromePrefs.put("download.default_directory", downloadFilepath);
+				  //chromePrefs.put("download.default_directory", downloadFilepath);
 				  ChromeOptions options = new ChromeOptions();
 				  HashMap<String, Object> chromeOptionsMap = new HashMap<String, Object>();
 				  options.setExperimentalOption("prefs", chromePrefs);
