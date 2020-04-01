@@ -205,7 +205,7 @@ private void ExecuteTestSuite(String suite, String wsite, String b) throws Excep
 		  else 
 			  if(b.equals("Chrome")){
 				 // FileUtils.cleanDirectory(new File(dPath)); // clear download path
-				  System.setProperty("webdriver.chrome.driver", "chromedriver");
+				  System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 				  //new code
 				  
 						 	ChromeOptions options = new ChromeOptions();
