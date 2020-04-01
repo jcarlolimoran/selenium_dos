@@ -28,9 +28,18 @@
 					
 				
 						
-			
+					<include name="Stories"/>
+					<include name="Pages"/>	
+					<include name="PageNavigations"/>	
+					<include name="Students"/>			
+					<include name="UserAdmin"/>
+					<include name="Classrooms"/>
+					<include name="StudentReadingExperience"/>	
 					<include name="UserLogs"/>
-				
+					<include name="OpenEndedAnswers"/>
+					<include name="Clone_DeleteRecords"/>
+					<include name="Teachers"/>
+		
 				
 			
 		

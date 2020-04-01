@@ -24,6 +24,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Reader;
@@ -40,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
@@ -711,6 +713,16 @@ public class CommonMethods {
 
 		}
 
+	}
+	
+	public static File getLastModifiedFile(File directory) {
+	    File[] files = directory.listFiles();
+	   if (files.length == 0) return null;
+	    Arrays.sort(files, new Comparator<File>() {
+	        public int compare(File o1, File o2) {
+	            return new Long(o2.lastModified()).compareTo(o1.lastModified()); 
+	        }});
+	    return files[0];
 	}
 
 	public void PressTab(WebDriver d, String locatorID, String locatorType) throws Exception {
@@ -2878,7 +2890,7 @@ public class CommonMethods {
 
 	}
 
-/*	public static void csvToXLSX(String sourceFileName, String targetFileName) {
+	public static void csvToXLSX(String sourceFileName, String targetFileName) {
 		BufferedReader br = null;
 		SXSSFWorkbook wb = null;
 		FileOutputStream fileOutputStream = null;
@@ -2904,7 +2916,7 @@ public class CommonMethods {
 					if (str[i].startsWith("=")) {
 						currentRow.createCell(i).
 
-								setCellType(currentRow.createCell(i).CellType.STRING);
+								setCellType(currentRow.createCell(i).CELL_TYPE_STRING);
 						str[i] = str[i].replaceAll("\"", "");
 						str[i] = str[i].replaceAll("=", "");
 						currentRow.createCell(i).setCellValue(str[i]);
@@ -2912,13 +2924,13 @@ public class CommonMethods {
 						str[i] = str[i].replaceAll("\"", "");
 						currentRow.createCell(i).
 
-								setCellType(currentRow.createCell(i).CellType.STRING);
+								setCellType(currentRow.createCell(i).CELL_TYPE_STRING);
 						currentRow.createCell(i).setCellValue(str[i]);
 					} else {
 						str[i] = str[i].replaceAll("\"", "");
 						currentRow.createCell(i).
 
-								setCellType(currentRow.createCell(i).CellType.NUMERIC );
+								setCellType(currentRow.createCell(i).CELL_TYPE_NUMERIC);
 						currentRow.createCell(i).setCellValue(str[i]);
 					}
 				}
@@ -2950,5 +2962,22 @@ public class CommonMethods {
 			}
 		}
 	}
-*/
+	
+	public static void copyFileUsingStream(File source, File dest) throws IOException {
+	    InputStream is = null;
+	    OutputStream os = null;
+	    try {
+	        is = new FileInputStream(source);
+	        os = new FileOutputStream(dest);
+	        byte[] buffer = new byte[1024];
+	        int length;
+	        while ((length = is.read(buffer)) > 0) {
+	            os.write(buffer, 0, length);
+	        }
+	    } finally {
+	        is.close();
+	        os.close();
+	    }
+	}
+
 }
