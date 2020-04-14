@@ -30,8 +30,10 @@ steps:
   inputs:
     Contents: 'Tests.xlsx'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  condition: succeededOrFailed()
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'excel'
     publishLocation: 'Container'
+  condition: succeededOrFailed()
